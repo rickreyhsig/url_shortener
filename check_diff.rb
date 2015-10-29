@@ -6,6 +6,22 @@ def check_diff(a, b) # Checks the diffent characters in two strings
     return cnt
 end
 
-Url.all.each do |url|
-    puts (url.short_url)[(url.short_url).index('rkreyhsig/')+10,url.short_url.length]
+def check_all_short_urls(shrt)
+    Url.all.each do |url|
+        puts shrt + ' '  + url.short_url + ' ' + check_diff(shrt, url.short_url).to_s
+        if check_diff(shrt, url.short_url) <= 1
+            return false
+        end
+    end
 end
+
+puts 'Repeat' unless check_all_short_urls('YeVhST')
+puts 'Repeat' unless check_all_short_urls('YeVh89')
+
+
+puts 'Repeat' unless check_all_short_urls('AJuwzW')
+puts 'Repeat' unless check_all_short_urls('k8PbfC')
+puts 'Repeat' unless check_all_short_urls('unqb4y')
+puts 'Repeat' unless check_all_short_urls('U3DqZK')
+puts 'Repeat' unless check_all_short_urls('U3DqZ9')
+#puts 'Repeat' if check_all_short_urls('')

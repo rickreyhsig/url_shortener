@@ -1,4 +1,4 @@
-<%= form_for(@url) do |f| %>
+<%= form_for(@url, :style => 'float:left') do |f| %>
   <% if @url.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@url.errors.count, "error") %> prohibited this url from being saved:</h2>
@@ -15,29 +15,16 @@
     <%= f.text_field :long_url, placeholder: 'Long URL' %>
   </span>
   <span class="actions">
-    <%= f.submit 'Shorten URL'%>
+    <%= f.submit 'Shorten URL', id: 'ajax_index' %>
   </span>
 <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Long url</th>
-      <th>Short url</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<%= form_tag @urls_path, :method => 'get', :style => "float:left;clear:right", :id => "users_search" do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil, class: "btn btn-default", style: "padding: 3px 2px 1px 2px;" %>
+  </p>
+<% end %>
 
-  <tbody>
-    <% @urls.each do |url| %>
-      <tr>
-        <td><%= url.long_url %></td>
-        <td><%= url.short_url %></td>
-        <td><%= link_to 'Show', url %></td>
-        <td><%= link_to 'Edit', edit_url_path(url) %></td>
-        <td><%= link_to 'Destroy', url, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render 'urls' %>
 

@@ -1,8 +1,4 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Urls</h1>
-
-<table>
+<table id='urls_table'>
   <thead>
     <tr>
       <th>Long url</th>
@@ -13,7 +9,7 @@
 
   <tbody>
     <% @urls.each do |url| %>
-      <tr>
+      <tr data-id="<%=url.id%>" data-time="<%=url.created_at.to_i%>">
         <td><%= url.long_url %></td>
         <td><%= 'rkreyhsig/' + url.short_url %></td>
         <td><%= link_to 'Show', url %></td>
@@ -24,6 +20,3 @@
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Url', new_url_path %>
