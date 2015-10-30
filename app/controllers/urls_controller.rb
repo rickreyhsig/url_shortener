@@ -16,9 +16,6 @@ class UrlsController < ApplicationController
   def new
     @url = Url.new
     @urls= Url.all.search(params[:search]) unless params[:id]# So that urls#index can show all urls created
-    if params[:id]
-    @urls = Url.where("id = ? and created_at > ?", params[:id], Time.at(params[:after].to_i + 1)).search(params[:search])
-    end
   end
 
   # GET /urls/1/edit

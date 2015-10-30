@@ -25,6 +25,27 @@
     <%= submit_tag "Search", :name => nil, class: "btn btn-default", style: "margin: 12px 3px 0px 10px;" %>
   </p>
 <% end %>
-<br/><br/><br/>
-<%= render 'urls' %>
 
+<br/><br/><br/>
+
+<div class="table-responsive">
+<table id='urls_table' class="table table-striped table-bordered table-hover table-condensed table-responsive">
+  <thead>
+    <tr>
+      <th>Long url</th>
+      <th>Short url</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @urls.each do |url| %>
+      <tr data-id="<%=url.id%>" data-time="<%=url.created_at.to_i%>">
+        <td><%= url.long_url %></td>
+        <td><%= 'tny/' + url.short_url %></td>
+        <td><%= link_to 'Details', url %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

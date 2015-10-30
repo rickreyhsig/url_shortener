@@ -17,11 +17,8 @@ end
 
 puts 'Repeat' unless check_all_short_urls('YeVhST')
 puts 'Repeat' unless check_all_short_urls('YeVh89')
-
-
 puts 'Repeat' unless check_all_short_urls('AJuwzW')
 puts 'Repeat' unless check_all_short_urls('k8PbfC')
 puts 'Repeat' unless check_all_short_urls('unqb4y')
 puts 'Repeat' unless check_all_short_urls('U3DqZK')
 puts 'Repeat' unless check_all_short_urls('U3DqZ9')
-#puts 'Repeat' if check_all_short_urls('')
