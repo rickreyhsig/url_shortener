@@ -28,8 +28,9 @@ class Url < ActiveRecord::Base
     end
 
     def self.search(search)
+      search2 = search.to_s.gsub '0', 'O'
       if search
-        where('long_url LIKE ? OR short_url LIKE ?', "%#{search}%", "%#{search}%")
+        where('long_url LIKE ? OR short_url LIKE ?', "%#{search}%", "%#{search2}%")
       else
         where(nil)
       end
