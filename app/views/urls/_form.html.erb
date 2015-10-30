@@ -12,19 +12,19 @@
   <% end %>
 
   <span class="field">
-    <%= f.text_field :long_url, placeholder: 'Long URL' %>
+    <%= f.text_field :long_url, placeholder: 'Long URL' , class: 'form-control' %>
   </span>
   <span class="actions">
-    <%= f.submit 'Shorten URL', id: 'ajax_index' %>
+    <%= f.submit 'Shorten URL', id: 'ajax_index', class: "btn btn-default",  style: "margin: 0px 3px 10px 10px;"  %>
   </span>
 <% end %>
 
-<%= form_tag @urls_path, :method => 'get', :style => "float:left;clear:right", :id => "users_search" do %>
+<%= form_tag @urls_path, :method => 'get', :style => "clear:right", :id => "users_search" do %>
   <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", :name => nil, class: "btn btn-default", style: "padding: 3px 2px 1px 2px;" %>
+    <%= text_field_tag :search, params[:search] , placeholder: 'Search', class: 'form-control' , style: 'margin-top: 13px;'%>
+    <%= submit_tag "Search", :name => nil, class: "btn btn-default", style: "margin: 12px 3px 0px 10px;" %>
   </p>
 <% end %>
-
+<br/><br/><br/>
 <%= render 'urls' %>
 

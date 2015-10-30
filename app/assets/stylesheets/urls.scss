@@ -1,3 +1,24 @@
 // Place all the styles related to the Urls controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+form,
+form span,
+form input {
+display: inline;
+float:left;
+}
+#users_search{
+margin: -14px 3px 6px 5px;
+}
+#urls_table{
+clear:both;
+}
+.form-control {
+width: 250px;
+}
+.table {
+width: 62.9%;
+}
+

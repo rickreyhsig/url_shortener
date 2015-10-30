@@ -1,4 +1,5 @@
-<table id='urls_table'>
+<div class="table-responsive">
+<table id='urls_table' class="table table-striped table-bordered table-hover table-condensed table-responsive">
   <thead>
     <tr>
       <th>Long url</th>
@@ -11,12 +12,10 @@
     <% @urls.each do |url| %>
       <tr data-id="<%=url.id%>" data-time="<%=url.created_at.to_i%>">
         <td><%= url.long_url %></td>
-        <td><%= 'rkreyhsig/' + url.short_url %></td>
+        <td><%= 'tny/' + url.short_url %></td>
         <td><%= link_to 'Show', url %></td>
-        <td><%= link_to 'Edit', edit_url_path(url) %></td>
-        <td><%= link_to 'Destroy', url, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
+</div>

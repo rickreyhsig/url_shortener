@@ -17,9 +17,11 @@
     <%= f.text_field :long_url, placeholder: 'Long URL' %>
   </span>
   <span class="actions">
-    <%= f.submit 'Shorten URL'%>
+    <%= f.submit 'Shorten URL', style: "margin: 2px 3px 0px 10px;" %>
   </span>
 <% end %>
 
+<br/>
+<br/>
 <%= link_to 'Show', @url %> |
-<%= link_to 'Back', urls_path %>
+<%= link_to 'Back', new_url_path %>
