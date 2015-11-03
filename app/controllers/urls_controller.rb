@@ -1,4 +1,5 @@
 class UrlsController < ApplicationController
+  skip_before_filter  :verify_authenticity_token
   before_action :set_url, only: [:show, :edit, :update, :destroy]
 
   # GET /urls
@@ -15,7 +16,7 @@ class UrlsController < ApplicationController
   # GET /urls/new
   def new
     @url = Url.new
-    @urls= Url.all.search(params[:search]) unless params[:id]# So that urls#index can show all urls created
+    @urls= Url.all.search(params[:search]) unless params[:id ]# So that urls#index can show all urls created
   end
 
   # GET /urls/1/edit
@@ -59,6 +60,51 @@ class UrlsController < ApplicationController
       format.html { redirect_to urls_url, notice: 'Url was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def url_shortener_api
+    unless request.method == "POST"
+        render text: "Please call this API using an HTTP POST request", status: :unprocessable_entity and return
+    end
+
+    errors = Array.new
+    warnings = Array.new
+
+    # url not present
+    unless params["url"].present?
+        errors << "URL is required, but not present."
+        render text: errors.join(" \n"), status: :unprocessable_entity and return
+    end
+
+    # url is short and needs to be parsed
+    if params[:url].length > 7 && params[:url].index('tny/')
+      tmp_shrt_url = params[:url]
+      tmp_shrt_url = tmp_shrt_url[tmp_shrt_url.index('tny/')+4,tmp_shrt_url.length]
+      params[:url] = tmp_shrt_url
+    end
+
+    # found short url
+    if Url.find_by_short_url(params[:url])
+      warnings << 'The corresponding long url is: ' + Url.find_by_short_url(params[:url]).long_url
+    end
+
+    # Create long URL
+    new_url = Url.new(long_url: params[:url])
+
+    if new_url.save
+      warnings << 'Short url created is: tny/' + new_url.short_url
+    end
+
+    if !Url.find_by_short_url(params[:url]) && !Url.find_by_long_url(params[:url])
+      errors << 'The url provided came back without results, please try again.'
+    end
+
+    unless errors.empty?
+        render text: errors.join(" \n"), status: :unprocessable_entity and return
+    end
+
+    render :text => warnings.join("\n"), :status => 200
+
   end
 
   private
