@@ -86,13 +86,15 @@ class UrlsController < ApplicationController
     # found short url
     if Url.find_by_short_url(params[:url])
       warnings << 'The corresponding long url is: ' + Url.find_by_short_url(params[:url]).long_url
-    end
+    else
+      # Create long URL
+      new_url = Url.new(long_url: params[:url])
 
-    # Create long URL
-    new_url = Url.new(long_url: params[:url])
-
-    if new_url.save
-      warnings << 'Short url created is: tny/' + new_url.short_url
+      if new_url.save
+        warnings << 'Short url created is: tny/' + new_url.short_url
+      else
+        errors << 'Unable to create url'
+      end
     end
 
     if !Url.find_by_short_url(params[:url]) && !Url.find_by_long_url(params[:url])

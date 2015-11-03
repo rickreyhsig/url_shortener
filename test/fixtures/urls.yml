@@ -7,3 +7,7 @@ one:
 two:
   long_url: MyString
   short_url: MyString
+
+three:
+  long_url: www.google.com
+  short_url: tny/3d3d042
