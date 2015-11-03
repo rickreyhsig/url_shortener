@@ -22,6 +22,7 @@ class Url < ActiveRecord::Base
 
     def create_short_url
         short = Digest::MD5.hexdigest(self.long_url+"a shortening salt").slice(0..6)
+        short.gsub '0', 'O'
 
         # Recalculate short url in case a suplicate is found or a curse word is found
         if ( (check_all_short_urls(short) == false) || (BAD_WORDS.include? short.downcase) )
