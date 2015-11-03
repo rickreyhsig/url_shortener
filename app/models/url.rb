@@ -1,5 +1,8 @@
 class Url < ActiveRecord::Base
+    require 'digest'
     before_save :create_short_url
+
+    BAD_WORDS = ['shit', 'fuck', 'damn', 'bitch', 'ass']
 
     def check_diff(a, b)
         cnt = 0
@@ -18,11 +21,13 @@ class Url < ActiveRecord::Base
     end
 
     def create_short_url
-        short = [*('a'..'z'),*('1'..'9'),*('A'..'Z')].shuffle[0,6].join
-        unless check_all_short_urls(short)
+        short = Digest::MD5.hexdigest(self.long_url+"a shortening salt").slice(0..6)
+
+        # Recalculate short url in case a suplicate is found or a curse word is found
+        if ( (check_all_short_urls(short) == false) || (BAD_WORDS.include? short.downcase) )
+            self.long_url = self.long_url + '_'
             create_short_url
         else
-            #if (check for bad words)
             self.short_url = short
         end
     end
